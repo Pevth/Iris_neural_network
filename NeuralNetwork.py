@@ -1,6 +1,5 @@
 import numpy as np
 import dill
-import random
 import shortuuid
 import IOValues as iov
 import matplotlib.pyplot as plt
@@ -38,7 +37,7 @@ class NeuralNetwork:
     def sigmoid_derivative(self, x):
         return x * (1 - x)
 
-    def train(self, train_data, test_data, max_generations, learn_rate, momentum, folder_name, uuid, step_generations):
+    def train(self, train_data, test_data, max_generations, learn_rate, momentum, folder_name, step_generations):
 
         ioval_train = iov.IOValues(train_data)
         ioval_test = iov.IOValues(test_data)
@@ -167,11 +166,13 @@ class NeuralNetwork:
         if not os.path.exists(folder_name):
             os.mkdir(folder_name)
 
+        uuid = shortuuid.ShortUUID().random(length=10)
         finalList.append(uuid)
         path = folder_name + "/" + uuid
         os.mkdir(path)
 
         save_network(backup_network, str(path)+"/best_record_of_network"+".pkl")
+        save_network(self, str(path) + "/record_of_network.pkl")
         iov.save_val(ioval_train, str(path) + "/ioval_train_data" + ".pkl")
         iov.save_val(ioval_test, str(path) + "/ioval_test_data" + ".pkl")
 
@@ -286,9 +287,10 @@ class NeuralNetwork:
 
         f.write("TP: " + str(TP) + " | TN: " + str(TN) + " | FP: " + str(FP) + " | FN: " + str(FN) + "\n")
 
-        precision = TP / (TP + FP)
-        recall = TP / (TP + FN)
-        specificity = TN / (TN + FP)
+        precision = TP * 1.0 / (TP + FP) * 1.0
+        recall = TP * 1.0 / (TP + FN) * 1.0
+        specificity = TN * 1.0 / (TN + FP) * 1.0
+
         f.write("Precision: " + str(precision) + "\n")
         f.write("Recall: " + str(recall) + "\n")
         f.write("Specificity: " + str(specificity) + "\n")
@@ -303,9 +305,10 @@ class NeuralNetwork:
 
         f.write("TP: " + str(TP) + " | TN: " + str(TN) + " | FP: " + str(FP) + " | FN: " + str(FN) + "\n")
 
-        precision = TP / (TP + FP)
-        recall = TP / (TP + FN)
-        specificity = TN / (TN + FP)
+        precision = TP * 1.0 / (TP + FP) * 1.0
+        recall = TP * 1.0 / (TP + FN) * 1.0
+        specificity = TN * 1.0 / (TN + FP) * 1.0
+
         f.write("Precision: " + str(precision) + "\n")
         f.write("Recall: " + str(recall) + "\n")
         f.write("Specificity: " + str(specificity) + "\n")
@@ -320,9 +323,10 @@ class NeuralNetwork:
 
         f.write("TP: " + str(TP) + " | TN: " + str(TN) + " | FP: " + str(FP) + " | FN: " + str(FN) + "\n")
 
-        precision = TP / (TP + FP)
-        recall = TP / (TP + FN)
-        specificity = TN / (TN + FP)
+        precision = TP * 1.0 / (TP + FP) * 1.0
+        recall = TP * 1.0 / (TP + FN) * 1.0
+        specificity = TN * 1.0 / (TN + FP) * 1.0
+
         f.write("Precision: " + str(precision) + "\n")
         f.write("Recall: " + str(recall) + "\n")
         f.write("Specificity: " + str(specificity) + "\n")
