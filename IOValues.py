@@ -1,8 +1,7 @@
 import dill
 class IOValues:
-    def __init__(self, input, output):
-        self.input = input
-        self.output = output
+    def __init__(self, val):
+        self.values = val
 
 
 def save_val(object, filename):
